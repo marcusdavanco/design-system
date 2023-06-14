@@ -1,1 +1,3 @@
-packages/tokens/node_modules
+/packages/tokens/node_modules
+/packages/react/node_modules
+/node_modules
