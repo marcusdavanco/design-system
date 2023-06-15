@@ -3,9 +3,16 @@
 	"workspaces": [
 		"packages/*"
 	],
+	"scripts": {
+		"dev": "turbo run dev --parallel",
+		"build": "turbo run build"
+	},
 	"dependencies": {
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"uninstall": "^0.0.0"
+	},
+	"devDependencies": {
+		"turbo": "^1.10.3"
 	}
 }
