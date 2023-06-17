@@ -9,6 +9,13 @@ export default {
     src: 'https://github.com/marcusdavanco.png',
     alt: 'Marcus Davanco',
   },
+  argTypes: {
+    src: {
+      control: {
+        type: 'text',
+      }
+    }
+  }
 
 
 } as Meta<AvatarProps>

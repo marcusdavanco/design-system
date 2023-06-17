@@ -1,4 +1,4 @@
-import type {  Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 import { Heading, HeadingProps } from '@ignite-ui/react'
 
 export default {
@@ -6,7 +6,16 @@ export default {
   component: Heading,
   tags: ['autodocs'],
   args: {
+    size: 'md',
     children: 'Custom Title',
+  },
+  argTypes: {
+    size: {
+      options: ['sm', 'md', 'lg', '2xl', '3xl', '4xl', '5xl', '6xl'],
+      control: {
+        type: 'inline-radio',
+      }
+    },
   },
 
 
@@ -29,3 +38,4 @@ export const CustomTag: StoryObj<HeadingProps> = {
   },
 }
 
+Heading.displayName = 'Heading'
