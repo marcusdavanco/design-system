@@ -1,8 +1,9 @@
-import type {  Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 import { Avatar, AvatarProps } from '@ignite-ui/react'
 
 export default {
   title: 'Data display/Avatar',
+  tags: ['autodocs'],
   component: Avatar,
   args: {
     src: 'https://github.com/marcusdavanco.png',
@@ -21,4 +22,4 @@ export const WithFallback: StoryObj<AvatarProps> = {
   }
 }
 
-
+Avatar.displayName = 'Avatar'

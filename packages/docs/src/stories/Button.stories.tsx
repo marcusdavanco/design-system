@@ -4,6 +4,7 @@ import { ArrowRight } from 'phosphor-react'
 export default {
   title: 'Form/Button',
   component: Button,
+  tags: ['autodocs'],
   args: {
     children: 'Send'
   },
@@ -50,3 +51,5 @@ export const Disabled: StoryObj<ButtonProps> = {
     disabled: true,
   }
 }
+
+Button.displayName = 'Button'

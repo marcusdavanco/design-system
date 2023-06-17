@@ -1,9 +1,10 @@
-import type {  Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 import { Text, TextProps } from '@ignite-ui/react'
 
 export default {
   title: 'Typography/Text',
   component: Text,
+  tags: ['autodocs'],
 
   args: {
     children: 'lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet',
@@ -22,3 +23,4 @@ export const CustomTag: StoryObj<TextProps> = {
   }
 }
 
+Text.displayName = 'Text'

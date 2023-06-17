@@ -4,6 +4,7 @@ import { Box, Text, TextInput, TextInputProps } from '@ignite-ui/react'
 export default {
   title: 'Form/Text Input',
   component: TextInput,
+  tags: ['autodocs'],
   args: {
   },
   decorators: [
@@ -36,3 +37,6 @@ export const WithPrefix: StoryObj<TextInputProps> = {
     prefix: 'call.com/',
   }
 }
+
+TextInput.displayName = 'TextInput'
+
