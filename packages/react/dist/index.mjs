@@ -566,13 +566,10 @@ var ToastClose = styled(Toast.Close, {
 
 // src/components/Toast/index.tsx
 import { X } from "phosphor-react";
-import { useState } from "react";
 import { jsx as jsx5, jsxs as jsxs4 } from "react/jsx-runtime";
-function Toast2({ title, content }) {
-  const [open, setOpen] = useState(false);
+function Toast2({ title, content, open, setOpen }) {
   return /* @__PURE__ */ jsxs4(ToastProvider, { children: [
-    /* @__PURE__ */ jsx5(Button, { onClick: () => setOpen(true), children: "Toast" }),
-    /* @__PURE__ */ jsxs4(ToastContainer, { duration: 3e3, open, onOpenChange: setOpen, children: [
+    /* @__PURE__ */ jsxs4(ToastContainer, { open, onOpenChange: setOpen, children: [
       /* @__PURE__ */ jsxs4(ToastTitle, { children: [
         title,
         /* @__PURE__ */ jsx5(ToastClose, { children: /* @__PURE__ */ jsx5(X, { size: 12, color: "#A9A9B2" }) })

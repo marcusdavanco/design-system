@@ -31,5 +31,4 @@ export const Full: StoryObj<MultiStepProps> = {
   }
 }
 
-MultiStep.displayName = 'MultiStep'
 

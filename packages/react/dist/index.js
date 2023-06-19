@@ -616,13 +616,10 @@ var ToastClose = styled(Toast.Close, {
 
 // src/components/Toast/index.tsx
 var import_phosphor_react3 = require("phosphor-react");
-var import_react6 = require("react");
 var import_jsx_runtime5 = require("react/jsx-runtime");
-function Toast2({ title, content }) {
-  const [open, setOpen] = (0, import_react6.useState)(false);
+function Toast2({ title, content, open, setOpen }) {
   return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(ToastProvider, { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(Button, { onClick: () => setOpen(true), children: "Toast" }),
-    /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(ToastContainer, { duration: 3e3, open, onOpenChange: setOpen, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(ToastContainer, { open, onOpenChange: setOpen, children: [
       /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(ToastTitle, { children: [
         title,
         /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(ToastClose, { children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_phosphor_react3.X, { size: 12, color: "#A9A9B2" }) })

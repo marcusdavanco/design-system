@@ -13,15 +13,14 @@ import { Button } from '../Button'
 export interface ToastProps {
   title: string
   content: string
+  open: boolean
+  setOpen: (open: boolean) => void
 }
 
-export function Toast({ title, content }: ToastProps) {
-  const [open, setOpen] = useState(false)
-
+export function Toast({ title, content, open, setOpen }: ToastProps) {
   return (
     <ToastProvider>
-      <Button onClick={() => setOpen(true)}>Toast</Button>
-      <ToastContainer duration={3000} open={open} onOpenChange={setOpen}>
+      <ToastContainer open={open} onOpenChange={setOpen}>
         <ToastTitle>
           {title}
           <ToastClose>
