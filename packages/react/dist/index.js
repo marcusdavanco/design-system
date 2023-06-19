@@ -67,7 +67,16 @@ __export(src_exports, {
   MultiStep: () => MultiStep,
   Text: () => Text,
   TextArea: () => TextArea,
-  TextInput: () => TextInput
+  TextInput: () => TextInput,
+  Toast: () => Toast2,
+  config: () => config,
+  createTheme: () => createTheme,
+  css: () => css,
+  getCssText: () => getCssText,
+  globalCss: () => globalCss,
+  keyframes: () => keyframes,
+  styled: () => styled,
+  theme: () => theme
 });
 module.exports = __toCommonJS(src_exports);
 
@@ -86,7 +95,8 @@ var colors = {
   ignite300: "#00B37E",
   ignite500: "#00875F",
   ignite700: "#015F43",
-  ignite900: "#00291D"
+  ignite900: "#00291D",
+  test: "#FFF"
 };
 var space = {
   1: "0.25rem",
@@ -173,7 +183,7 @@ var {
 
 // src/components/Box.tsx
 var Box = styled("div", {
-  padding: "$4",
+  padding: "$6",
   borderRadius: "$md",
   backgroundColor: "$gray800",
   border: "1px solid $gray600"
@@ -190,6 +200,7 @@ var Text = (0, import_react2.styled)("p", {
     size: {
       xxs: { fontSize: "$xxs" },
       xs: { fontSize: "$xs" },
+      sm: { fontSize: "$sm" },
       md: { fontSize: "$md" },
       lg: { fontSize: "$lg" },
       xl: { fontSize: "$xl" },
@@ -238,8 +249,8 @@ var Avatar = __toESM(require("@radix-ui/react-avatar"));
 var AvatarContainer = styled(Avatar.Root, {
   borderRadius: "$full",
   display: "inline-block",
-  width: "$12",
-  height: "$12",
+  width: "$16",
+  height: "$16",
   overflow: "hidden"
 });
 var AvatarImage = styled(Avatar.Image, {
@@ -295,6 +306,9 @@ var Button = styled("button", {
     backgroundColor: "$gray200",
     cursor: "not-allowed"
   },
+  "&:focus": {
+    boxShadow: "0 0 0 2px $colors$gray100"
+  },
   variants: {
     variant: {
       primary: {
@@ -344,22 +358,37 @@ var Button = styled("button", {
   }
 });
 
+// src/components/TextInput/index.tsx
+var import_react5 = require("react");
+
 // src/components/TextInput/styles.ts
 var import_react4 = require("@stitches/react");
 var TextInputContainer = (0, import_react4.styled)("div", {
   backgroundColor: "$gray900",
-  padding: "$3 $4",
   borderRadius: "$sm",
   boxSizing: "border-box",
   border: "2px solid $gray900",
   display: "flex",
-  alignItems: "baseLine",
+  alignItems: "center",
+  variants: {
+    size: {
+      sm: {
+        padding: "$2 $3"
+      },
+      md: {
+        padding: "$3 $4"
+      }
+    }
+  },
   "&:has(input:focus)": {
     borderColor: "$ignite300"
   },
   "&:has(input:disabled)": {
     opacity: 0.5,
     cursor: "not-allowed"
+  },
+  defaultVariants: {
+    size: "md"
   }
 });
 var Prefix = (0, import_react4.styled)("span", {
@@ -389,13 +418,16 @@ var Input = (0, import_react4.styled)("input", {
 
 // src/components/TextInput/index.tsx
 var import_jsx_runtime2 = require("react/jsx-runtime");
-function TextInput(_a) {
-  var _b = _a, { prefix } = _b, props = __objRest(_b, ["prefix"]);
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(TextInputContainer, { children: [
-    !!prefix && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Prefix, { children: prefix }),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Input, __spreadValues({}, props))
-  ] });
-}
+var TextInput = (0, import_react5.forwardRef)(
+  (_a, ref) => {
+    var _b = _a, { prefix } = _b, props = __objRest(_b, ["prefix"]);
+    return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(TextInputContainer, { children: [
+      !!prefix && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Prefix, { children: prefix }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Input, __spreadValues({ ref }, props))
+    ] });
+  }
+);
+TextInput.displayName = "TextInput";
 
 // src/components/TextArea.tsx
 var TextArea = styled("textarea", {
@@ -444,7 +476,7 @@ var CheckboxContainer = styled(Checkbox.Root, {
   '&[data-state="checked"]': {
     backgroundColor: "$ignite300"
   },
-  "&:focus": {
+  '&:focus, &[data-state="checked"]': {
     border: "2px solid $ignite300"
   }
 });
@@ -524,6 +556,82 @@ function MultiStep({ size, currentStep = 1 }) {
     }) })
   ] });
 }
+
+// src/components/Toast/styles.ts
+var Toast = __toESM(require("@radix-ui/react-toast"));
+var slideIn2 = keyframes({
+  from: { transform: "translateX(100%)" },
+  to: { transform: "translateX(0)" }
+});
+var hide = keyframes({
+  from: { opacity: 1 },
+  to: { opacity: 0 }
+});
+var ToastProvider = styled(Toast.Provider, {});
+var ToastViewport = styled(Toast.Viewport, {
+  position: "fixed",
+  bottom: 0,
+  right: 0,
+  display: "flex",
+  flexDirection: "column",
+  padding: "$8",
+  minWidth: 360
+});
+var ToastContainer = styled(Toast.Root, {
+  backgroundColor: "$gray800",
+  border: "1px solid $gray600",
+  display: "flex",
+  flexDirection: "column",
+  padding: "$3 $5",
+  gap: 4,
+  borderRadius: 6,
+  '&[data-state="open"]': {
+    animation: `${slideIn2} 150ms cubic-bezier(0.16, 1, 0.3, 1)`
+  },
+  '&[data-state="closed"]': {
+    animation: `${hide} 100ms ease-in`
+  }
+});
+var ToastTitle = styled(Toast.Title, {
+  color: "$white",
+  fontSize: "$xl",
+  display: "flex",
+  justifyContent: "space-between"
+});
+var ToastDescription = styled(Toast.Description, {
+  color: "$gray200",
+  fontSize: "$sm"
+});
+var ToastClose = styled(Toast.Close, {
+  background: "none",
+  border: "none",
+  padding: 0,
+  lineHeight: 0,
+  svg: {
+    color: "$gray200",
+    cursor: "pointer",
+    marginLeft: "$2"
+  }
+});
+
+// src/components/Toast/index.tsx
+var import_phosphor_react3 = require("phosphor-react");
+var import_react6 = require("react");
+var import_jsx_runtime5 = require("react/jsx-runtime");
+function Toast2({ title, content }) {
+  const [open, setOpen] = (0, import_react6.useState)(false);
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(ToastProvider, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(Button, { onClick: () => setOpen(true), children: "Toast" }),
+    /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(ToastContainer, { duration: 3e3, open, onOpenChange: setOpen, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(ToastTitle, { children: [
+        title,
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(ToastClose, { children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_phosphor_react3.X, { size: 12, color: "#A9A9B2" }) })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(ToastDescription, { children: content })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(ToastViewport, {})
+  ] });
+}
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   Avatar,
@@ -534,5 +642,14 @@ function MultiStep({ size, currentStep = 1 }) {
   MultiStep,
   Text,
   TextArea,
-  TextInput
+  TextInput,
+  Toast,
+  config,
+  createTheme,
+  css,
+  getCssText,
+  globalCss,
+  keyframes,
+  styled,
+  theme
 });

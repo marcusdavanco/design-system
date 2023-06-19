@@ -20,5 +20,3 @@ export default {
 } as Meta<CheckboxProps>
 
 export const Primary: StoryObj<CheckboxProps> = {}
-
-Checkbox.displayName = 'Checkbox'

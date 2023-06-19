@@ -45,7 +45,8 @@ var colors = {
   ignite300: "#00B37E",
   ignite500: "#00875F",
   ignite700: "#015F43",
-  ignite900: "#00291D"
+  ignite900: "#00291D",
+  test: "#FFF"
 };
 var space = {
   1: "0.25rem",
@@ -132,7 +133,7 @@ var {
 
 // src/components/Box.tsx
 var Box = styled("div", {
-  padding: "$4",
+  padding: "$6",
   borderRadius: "$md",
   backgroundColor: "$gray800",
   border: "1px solid $gray600"
@@ -149,6 +150,7 @@ var Text = styled2("p", {
     size: {
       xxs: { fontSize: "$xxs" },
       xs: { fontSize: "$xs" },
+      sm: { fontSize: "$sm" },
       md: { fontSize: "$md" },
       lg: { fontSize: "$lg" },
       xl: { fontSize: "$xl" },
@@ -197,8 +199,8 @@ import * as Avatar from "@radix-ui/react-avatar";
 var AvatarContainer = styled(Avatar.Root, {
   borderRadius: "$full",
   display: "inline-block",
-  width: "$12",
-  height: "$12",
+  width: "$16",
+  height: "$16",
   overflow: "hidden"
 });
 var AvatarImage = styled(Avatar.Image, {
@@ -254,6 +256,9 @@ var Button = styled("button", {
     backgroundColor: "$gray200",
     cursor: "not-allowed"
   },
+  "&:focus": {
+    boxShadow: "0 0 0 2px $colors$gray100"
+  },
   variants: {
     variant: {
       primary: {
@@ -303,22 +308,37 @@ var Button = styled("button", {
   }
 });
 
+// src/components/TextInput/index.tsx
+import { forwardRef } from "react";
+
 // src/components/TextInput/styles.ts
 import { styled as styled4 } from "@stitches/react";
 var TextInputContainer = styled4("div", {
   backgroundColor: "$gray900",
-  padding: "$3 $4",
   borderRadius: "$sm",
   boxSizing: "border-box",
   border: "2px solid $gray900",
   display: "flex",
-  alignItems: "baseLine",
+  alignItems: "center",
+  variants: {
+    size: {
+      sm: {
+        padding: "$2 $3"
+      },
+      md: {
+        padding: "$3 $4"
+      }
+    }
+  },
   "&:has(input:focus)": {
     borderColor: "$ignite300"
   },
   "&:has(input:disabled)": {
     opacity: 0.5,
     cursor: "not-allowed"
+  },
+  defaultVariants: {
+    size: "md"
   }
 });
 var Prefix = styled4("span", {
@@ -348,13 +368,16 @@ var Input = styled4("input", {
 
 // src/components/TextInput/index.tsx
 import { jsx as jsx2, jsxs as jsxs2 } from "react/jsx-runtime";
-function TextInput(_a) {
-  var _b = _a, { prefix } = _b, props = __objRest(_b, ["prefix"]);
-  return /* @__PURE__ */ jsxs2(TextInputContainer, { children: [
-    !!prefix && /* @__PURE__ */ jsx2(Prefix, { children: prefix }),
-    /* @__PURE__ */ jsx2(Input, __spreadValues({}, props))
-  ] });
-}
+var TextInput = forwardRef(
+  (_a, ref) => {
+    var _b = _a, { prefix } = _b, props = __objRest(_b, ["prefix"]);
+    return /* @__PURE__ */ jsxs2(TextInputContainer, { children: [
+      !!prefix && /* @__PURE__ */ jsx2(Prefix, { children: prefix }),
+      /* @__PURE__ */ jsx2(Input, __spreadValues({ ref }, props))
+    ] });
+  }
+);
+TextInput.displayName = "TextInput";
 
 // src/components/TextArea.tsx
 var TextArea = styled("textarea", {
@@ -403,7 +426,7 @@ var CheckboxContainer = styled(Checkbox.Root, {
   '&[data-state="checked"]': {
     backgroundColor: "$ignite300"
   },
-  "&:focus": {
+  '&:focus, &[data-state="checked"]': {
     border: "2px solid $ignite300"
   }
 });
@@ -483,6 +506,82 @@ function MultiStep({ size, currentStep = 1 }) {
     }) })
   ] });
 }
+
+// src/components/Toast/styles.ts
+import * as Toast from "@radix-ui/react-toast";
+var slideIn2 = keyframes({
+  from: { transform: "translateX(100%)" },
+  to: { transform: "translateX(0)" }
+});
+var hide = keyframes({
+  from: { opacity: 1 },
+  to: { opacity: 0 }
+});
+var ToastProvider = styled(Toast.Provider, {});
+var ToastViewport = styled(Toast.Viewport, {
+  position: "fixed",
+  bottom: 0,
+  right: 0,
+  display: "flex",
+  flexDirection: "column",
+  padding: "$8",
+  minWidth: 360
+});
+var ToastContainer = styled(Toast.Root, {
+  backgroundColor: "$gray800",
+  border: "1px solid $gray600",
+  display: "flex",
+  flexDirection: "column",
+  padding: "$3 $5",
+  gap: 4,
+  borderRadius: 6,
+  '&[data-state="open"]': {
+    animation: `${slideIn2} 150ms cubic-bezier(0.16, 1, 0.3, 1)`
+  },
+  '&[data-state="closed"]': {
+    animation: `${hide} 100ms ease-in`
+  }
+});
+var ToastTitle = styled(Toast.Title, {
+  color: "$white",
+  fontSize: "$xl",
+  display: "flex",
+  justifyContent: "space-between"
+});
+var ToastDescription = styled(Toast.Description, {
+  color: "$gray200",
+  fontSize: "$sm"
+});
+var ToastClose = styled(Toast.Close, {
+  background: "none",
+  border: "none",
+  padding: 0,
+  lineHeight: 0,
+  svg: {
+    color: "$gray200",
+    cursor: "pointer",
+    marginLeft: "$2"
+  }
+});
+
+// src/components/Toast/index.tsx
+import { X } from "phosphor-react";
+import { useState } from "react";
+import { jsx as jsx5, jsxs as jsxs4 } from "react/jsx-runtime";
+function Toast2({ title, content }) {
+  const [open, setOpen] = useState(false);
+  return /* @__PURE__ */ jsxs4(ToastProvider, { children: [
+    /* @__PURE__ */ jsx5(Button, { onClick: () => setOpen(true), children: "Toast" }),
+    /* @__PURE__ */ jsxs4(ToastContainer, { duration: 3e3, open, onOpenChange: setOpen, children: [
+      /* @__PURE__ */ jsxs4(ToastTitle, { children: [
+        title,
+        /* @__PURE__ */ jsx5(ToastClose, { children: /* @__PURE__ */ jsx5(X, { size: 12, color: "#A9A9B2" }) })
+      ] }),
+      /* @__PURE__ */ jsx5(ToastDescription, { children: content })
+    ] }),
+    /* @__PURE__ */ jsx5(ToastViewport, {})
+  ] });
+}
 export {
   Avatar2 as Avatar,
   Box,
@@ -492,5 +591,14 @@ export {
   MultiStep,
   Text,
   TextArea,
-  TextInput
+  TextInput,
+  Toast2 as Toast,
+  config,
+  createTheme,
+  css,
+  getCssText,
+  globalCss,
+  keyframes,
+  styled,
+  theme
 };
