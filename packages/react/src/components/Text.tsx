@@ -11,6 +11,7 @@ export const Text = styled('p', {
     size: {
       xxs: { fontSize: '$xxs' },
       xs: { fontSize: '$xs' },
+      sm: { fontSize: '$sm' },
       md: { fontSize: '$md' },
       lg: { fontSize: '$lg' },
       xl: { fontSize: '$xl' },
