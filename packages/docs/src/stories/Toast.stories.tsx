@@ -3,7 +3,7 @@ import { Button, Toast, ToastProps } from '@md-ignite-ui/react'
 import { useState } from 'react'
 
 function DemoToast(props: ToastProps) {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
 
   return (
     <>
