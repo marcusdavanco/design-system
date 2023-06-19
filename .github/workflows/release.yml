@@ -34,5 +34,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          TURBO_TOKEN: r7mEsJRhda32ZI66Z5lExjpo
+          TURBO_TOKEN: ${{ secrets.VERCEL_SECRET }}
           TURBO_TEAM: marcusdavanco      
