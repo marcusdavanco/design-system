@@ -579,6 +579,67 @@ function Toast2({ title, content, open, setOpen }) {
     /* @__PURE__ */ jsx5(ToastViewport, {})
   ] });
 }
+
+// src/components/Tooltip/index.tsx
+import * as RadixTooltip from "@radix-ui/react-tooltip";
+
+// src/components/Tooltip/styles.ts
+import * as Tooltip from "@radix-ui/react-tooltip";
+var slideUpAndFade = keyframes({
+  "0%": { opacity: 0, transform: "translateY(2px)" },
+  "100%": { opacity: 1, transform: "translateY(0)" }
+});
+var slideRightAndFade = keyframes({
+  "0%": { opacity: 0, transform: "translateX(-2px)" },
+  "100%": { opacity: 1, transform: "translateX(0)" }
+});
+var slideDownAndFade = keyframes({
+  "0%": { opacity: 0, transform: "translateY(-2px)" },
+  "100%": { opacity: 1, transform: "translateY(0)" }
+});
+var slideLeftAndFade = keyframes({
+  "0%": { opacity: 0, transform: "translateX(2px)" },
+  "100%": { opacity: 1, transform: "translateX(0)" }
+});
+var TooltipContent = styled(Tooltip.Content, {
+  borderRadius: "$sm",
+  padding: "$3 $4",
+  fontSize: "$sm",
+  lineHeight: "$short",
+  color: "$white",
+  backgroundColor: "$gray900",
+  fontFamily: "$default",
+  fontWeight: "$medium",
+  boxShadow: "hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px",
+  userSelect: "none",
+  animationDuration: "400ms",
+  animationTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+  willChange: "transform, opacity",
+  "media (prefers-reduced-motion: no-preference)": {
+    '&[data-state="delayed-open"]': {
+      '&[data-side="top"]': { animationName: slideDownAndFade },
+      '&[data-side="right"]': { animationName: slideLeftAndFade },
+      '&[data-side="bottom"]': { animationName: slideUpAndFade },
+      '&[data-side="left"]': { animationName: slideRightAndFade }
+    }
+  }
+});
+var TooltipArrow = styled(Tooltip.Arrow, {
+  fill: "$gray900"
+});
+
+// src/components/Tooltip/index.tsx
+import { jsx as jsx6, jsxs as jsxs5 } from "react/jsx-runtime";
+function Tooltip2(_a) {
+  var _b = _a, { content, children } = _b, props = __objRest(_b, ["content", "children"]);
+  return /* @__PURE__ */ jsx6(RadixTooltip.Provider, { children: /* @__PURE__ */ jsxs5(RadixTooltip.Root, __spreadProps(__spreadValues({}, props), { children: [
+    /* @__PURE__ */ jsx6(RadixTooltip.Trigger, { asChild: true, children }),
+    /* @__PURE__ */ jsx6(RadixTooltip.Portal, { children: /* @__PURE__ */ jsxs5(TooltipContent, { children: [
+      content,
+      /* @__PURE__ */ jsx6(TooltipArrow, {})
+    ] }) })
+  ] })) });
+}
 export {
   Avatar2 as Avatar,
   Box,
@@ -590,6 +651,7 @@ export {
   TextArea,
   TextInput,
   Toast2 as Toast,
+  Tooltip2 as Tooltip,
   config,
   createTheme,
   css,

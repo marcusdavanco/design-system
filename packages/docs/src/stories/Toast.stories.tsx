@@ -22,13 +22,13 @@ export default {
   component: DemoToast,
   tags: ['autodocs'],
   args: {
-    title: 'Agendamento realizado',
-    content: 'Quarta-feira, 23 de Outubro às 16h.',
-    open: true,
+
   },
 } as Meta<ToastProps>
 
 export const Primary: StoryObj<ToastProps> = {
   args: {
+    title: 'Agendamento realizado',
+    content: 'Quarta-feira, 23 de Outubro às 16h.',
   }
 }
