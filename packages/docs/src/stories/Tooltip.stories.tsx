@@ -4,6 +4,7 @@ import { Button, Tooltip, TooltipProps } from '@md-ignite-ui/react'
 export default {
   title: 'Surfaces/Tooltip',
   component: Tooltip,
+  tags: ['autodocs'],
   args: {
     children: <Button>Hover me</Button>,
     content: 'October 21st - Unavaiable',
